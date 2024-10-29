@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Jan Mohammad's Portfolio - A Computer Science Student and Developer showcasing projects and skills.">
+  <meta name="keywords" content="Jan Mohammad, portfolio, computer science, developer">
+  <title>Professional Portfolio Landing Page</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Enhanced background with parallax */
+    body {
+      background: linear-gradient(120deg, #6D83F2, #8DE0E6, #F2AC8D);
+      background-size: 200% 200%;
+      animation: gradientShift 10s ease infinite;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Dark mode styling */
+    .dark-mode {
+      background: #1F2937;
+      color: #E5E7EB;
+    }
+    .dark-mode .bg-gray-100 {
+      background: #4B5563;
+    }
+
+    /* Button hover glow effect */
+    .button-glow:hover {
+      box-shadow: 0 4px 20px rgba(66, 153, 225, 0.5);
+      transform: translateY(-2px);
+    }
+
+    /* Social icon bounce effect */
+    .social-icon:hover {
+      transform: scale(1.15) translateY(-4px);
+      transition: transform 0.2s ease;
+    }
+
+    /* Animated greeting */
+    .greeting {
+      animation: fadeIn 2s ease forwards, slideIn 1.5s ease-out;
+      opacity: 0;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+    @keyframes slideIn {
+      from { transform: translateY(-20px); }
+      to { transform: translateY(0); }
+    }
+
+
+    /* Profile badge tilt effect */
+    .profile-badge:hover {
+      transform: rotateX(5deg) rotateY(5deg);
+      transition: transform 0.5s;
+    }
+
+    /* Floating action button */
+    .fab {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #3B82F6;
+      color: white;
+      padding: 14px;
+      border-radius: 50%;
+      font-size: 1.25rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .fab:hover {
+      background: #2563EB;
+      transform: scale(1.1);
+      transition: transform 0.2s;
+    }
+
+    /* Dark mode toggle switch */
+    .toggle-btn {
+      width: 34px;
+      height: 20px;
+      background: #4B5563;
+      border-radius: 10px;
+      position: relative;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .toggle-btn::before {
+      content: "";
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      background: #FFF;
+      border-radius: 50%;
+      top: 2px;
+      left: 2px;
+      transition: transform 0.3s;
+    }
+    .toggle-btn.active {
+      background: #10B981;
+    }
+    .toggle-btn.active::before {
+      transform: translateX(14px);
+    }
+
+    /* Custom styles for 3D button and icon effect */
+    .btn-3d {
+      transform: translateY(-2px);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-3d:hover {
+      transform: translateY(-5px);
+      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
+    }
+    .icon-3d {
+      transform: translateY(-2px);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .icon-3d:hover {
+      transform: translateY(-5px);
+      box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Divider with shadow */
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, #bbb, transparent);
+      margin: 20px 0;
+      box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.15);
+    }
+
+    .profile-photo-wrapper {
+        background-color: #e2e8f0;
+        border-radius: 15px;
+        width: 8rem;
+        height: 8rem;
+        margin-left: 120px;
+        margin-bottom: 15px;
+        /* 3D Border effect */
+        box-shadow: 
+            inset 4px 4px 8px rgba(0, 0, 0, 0.15), /* Inner shadow for depth */
+            4px 4px 8px rgba(0, 0, 0, 0.3); /* Outer shadow to lift border */
+    }
+
+    .profile-photo-wrapper img {
+        border-radius: 15px;
+        object-fit: cover;
+    }
+    
+    #text {
+      font-size: 24px;
+      margin-left: 30px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    
+  </style>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen p-4 transition-all">
+
+  <!-- Loading Animation -->
+  <div id="loader" class="fixed inset-0 flex items-center justify-center bg-white z-50">
+    <div class="loader-circle border-t-4 border-blue-500 border-solid w-12 h-12 rounded-full animate-spin"></div>
+  </div>
+
+  <!-- Content -->
+  <div id="content" class="w-full max-w-sm bg-white dark:bg-gray-900 shadow-md rounded-lg p-6 text-gray-800 border border-gray-200 relative transition-all fade-in" style="display: none;">
+    
+    <!-- Navbar with Dark Mode Toggle -->
+    <nav class="flex justify-between items-center mb-4 text-gray-700">
+      <h2 class="text-lg font-bold flex-1 text-center" id="text">Welcome</h2>
+      <div id="darkModeToggle" class="toggle-btn cursor-pointer"></div>
+    </nav>
+
+    <div class="profile-photo-wrapper bg-gray-100 rounded-full overflow-hidden w-24 h-24 mr-24 ">
+      <img src="librarylogo.ico" alt="Profile Photo" class="w-full h-full rounded-full" loading="lazy">
+    </div>
+
+    <!-- Profile Section -->
+    <div class="text-center greeting">
+      <h1 class="text-lg font-semibold text-gray-900 dark:text-white">👋 Hello! I'm Courage Library</h1>
+      <p class="text-gray-600 dark:text-gray-300 mb-4">Serene Environment | Library</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Links Section -->
+    <div class="space-y-3">
+      <a href="https://www.couragelibrary.in/" target="_blank" class="button-glow flex items-center bg-gray-100 hover:bg-gray-200 transition transform py-3 px-5 rounded-lg text-center shadow-sm font-medium text-gray-700 text-sm dark:bg-gray-700 dark:hover:bg-gray-600">
+        <img src="logo1.png" alt="Courage Library" class="icon-3d w-6 h-6 rounded">
+        <span class="flex-1 text-center">Our Portal</span>
+      </a> 
+      <a href="https://maps.app.goo.gl/369HsQHKeScmfW8r5" target="_blank" class="button-glow flex items-center bg-gray-100 hover:bg-gray-200 transition transform py-3 px-5 rounded-lg text-center shadow-sm font-medium text-gray-700 text-sm dark:bg-gray-700 dark:hover:bg-gray-600">
+        <img src="map.png" alt="Google Map" class="icon-3d w-6 h-6 rounded">
+        <span class="flex-1 text-center">Google Map</span>
+      </a> 
+      <a href="https://www.facebook.com/people/Courage-Library/61561969000820/" target="_blank" class="button-glow flex items-center bg-gray-100 hover:bg-gray-200 transition transform py-3 px-5 rounded-lg text-center shadow-sm font-medium text-gray-700 text-sm dark:bg-gray-700 dark:hover:bg-gray-600">
+        <img src="facebook.png" alt="Facebook" class="icon-3d w-6 h-6 rounded">
+        <span class="flex-1 text-center">Facebook</span>
+      </a> 
+      <a href="https://x.com/CourageLibrary" target="_blank" class="button-glow flex items-center bg-gray-100 hover:bg-gray-200 transition transform py-3 px-5 rounded-lg text-center shadow-sm font-medium text-gray-700 text-sm dark:bg-gray-700 dark:hover:bg-gray-600">
+        <img src="x.jpeg" alt="X" class="icon-3d w-6 h-6 rounded">
+        <span class="flex-1 text-center">X</span>
+      </a> 
+      <a href="https://www.instagram.com/couragelibrary1/" target="_blank" class="button-glow flex items-center bg-gray-100 hover:bg-gray-200 transition transform py-3 px-5 rounded-lg text-center shadow-sm font-medium text-gray-700 text-sm dark:bg-gray-700 dark:hover:bg-gray-600">
+        <img src="instagram.jpeg" alt="Instagram" class="icon-3d w-6 h-6 rounded">
+        <span class="flex-1 text-center">Instagram</span>
+      </a>
+      <a href="https://www.linkedin.com/company/courage-library" target="_blank" class="button-glow flex items-center bg-gray-100 hover:bg-gray-200 transition transform py-3 px-5 rounded-lg text-center shadow-sm font-medium text-gray-700 text-sm dark:bg-gray-700 dark:hover:bg-gray-600">
+        <img src="linkedin.png" alt="LinkedIn" class="icon-3d w-6 h-6 rounded">
+        <span class="flex-1 text-center">LinkedIn</span>
+      </a>        
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Footer -->
+    <div class="mt-6 text-center text-gray-400 text-xs dark:text-gray-500">
+      <div class="border-t border-gray-300 dark:border-gray-600 mt-4 mb-2 opacity-60"></div>
+      <p>© 2024 Jan Mohammad. All Rights Reserved.</p>
+    </div>
+  </div>
+
+  <!-- Floating Action Button for Contact -->
+  <div class="fab" onclick="location.href='mailto:couragelibrary07@gmail.com?subject=Your Subject Here&body=Your message here'">📧</div>
+
+  <script>
+    // Loading animation control
+    window.addEventListener("load", () => {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("content").style.display = "block";
+    });
+
+    // Dark mode toggle
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    darkModeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      darkModeToggle.classList.toggle('active');
+    });
+
+    window.onload = function() {
+      document.getElementById("loader").style.display = "none";
+      document.getElementById("content").style.display = "block";
+    };
+
+  </script>
+</body>
+</html>
